@@ -9,6 +9,9 @@ tmp_dir
 .jekyll-metadata
 _site
 
+# draft files
+_drafts
+
 # RubyGems
 *.gem
 
