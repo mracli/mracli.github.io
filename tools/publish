@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Run jekyll publish
+
+command="bundle exec jekyll publish"
+path=$1
+
+if test $# -lt 1; then
+  echo "Usage:"
+  echo
+  echo "   ${0} [draft path]"
+  echo
+  exit
+fi
+
+command="$command $path"
+
+echo -e "\n> $command\n"
+eval "$command"
