@@ -28,5 +28,15 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   // extra settings for paste image in remote environment
-  "markdownImagePasteForRemote.imagePath": "${currentFileDir}assets/img/${currentFileNameWithoutExt}"
+  "markdownImagePasteForRemote.imagePath": "${currentFileDir}assets/img/${currentFileNameWithoutExt}",
+  // "markdown.math.enabled": false,
+  "markdown.extension.math.enabled": false,
+  "mdmath.katexoptions": {
+    "trust": "(context) => ['\\htmlId', '\\href'].includes(context.command)"
+  },
+  "mdmath.macros": {
+    "\\eqref": "\\href{###1}{(\\text{#1})}",
+    "\\ref": "\\href{###1}{\\text{#1}}",
+    "\\label": "\\htmlId{#1}{}"
+  }
 }

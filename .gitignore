@@ -24,5 +24,6 @@ package-lock.json
 .vscode
 # .vscode/settings.json
 # .vscode/extensions.json
+_posts/assets
 
 # Misc
