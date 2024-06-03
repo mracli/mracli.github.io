@@ -3,10 +3,11 @@ title: 套接字Socket
 description: Linux网络编程基础
 author: momo
 categories:
-- Linux网络
-- Socket
+- 笔记
+- Linux网络编程
 tags:
 - Linux
+- 笔记
 layout: post
 pin: false
 math: true
