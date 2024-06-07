@@ -4,7 +4,7 @@ description: Linux网络编程基础
 author: momo
 categories:
 - 笔记
-- Linux网络编程
+- Linux
 tags:
 - Linux
 - 笔记
