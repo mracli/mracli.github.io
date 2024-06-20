@@ -202,6 +202,8 @@ struct addrinfo {
 Linux 提供系统调用用于创建管道描述符，可以实现不同进程之间的**单向通信**：
 : `int pipe(int pipefd[2])`，该系统调用来自 `<unistd.h>`.
 
+其中pipefd[0] 描述符用于从对应文件读；pipefd[1] 用于向对应文件写。
+
 同时 socket 提供了双向通信的管道：
 : `int socketpair(int domain, int type, int protocol, int sv[2])`，该系统调用来自 `<sys/socket.h>`
 
