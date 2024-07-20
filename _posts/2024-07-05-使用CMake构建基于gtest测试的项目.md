@@ -174,6 +174,64 @@ Total Test time (real) =   0.02 sec
 
 结果日志也都在 `build/Testing/Temporary/LastTest.log` 文件中，可以查看详细的测试结果。
 
+## 使用 GMock 提前使用未实现类
+
+使用方法：定义需要Mock的类，并给出所有接口函数，同时接口函数需要 virtual 修饰，这样就可以调用运行时 Mock 实现的函数。
+
+```c++
+// gmock 与 gtest 都集成在 GoogleTest 库中
+#include <gmock/gmock.h>
+/*
+假设我们要 Mock 的类所有接口如下所示
+class Turtle {
+    ...
+    virtual ~Turtle() {};
+    virtual void PenUp() = 0;
+    virtual void PenDown() = 0;
+    virtual void Forward(int distance) = 0;
+    virtual void Turn(int degrees) = 0;
+    virtual void GoTo(int x, int y) = 0;
+    virtual int GetX() const = 0;
+    virtual int GetY() const = 0;
+};
+该接口来自GMock官方文档
+*/
+
+class MockTurtle: public(Turtle){
+public:
+	// 所有需要 Mock 的方法都按照宏定义继承
+	// MOCK_METHOD(return_type, method_name, (params_list), (suffix))
+	// 四个参数分别对应，原方法/函数的：返回类型，名称，参数列表，函数后缀关键字
+	...
+	MOCK_METHOD(void, PenUp, (), (override); // 可以不加 override, 但是加上可以保证我们是在对该方法override，以防同名不同参数的函数被错误重载
+	MOCK_METHOD(void, PenDown, (), (override));
+	MOCK_METHOD(void, Forward, (int distance), (override));
+	...
+	MOCK_METHOD(int, GetY, (), (const, override));
+	...
+};
+// 这样就可以定义一个 Mock 类
+
+// 测试中使用
+TEST(PainterTest, CanDrawSomething){
+	MockTurtle turtle;
+	// 具体期望 Mock 类调用时的返回什么的定义
+	// 同时也给出了该调用当前测试期望调用几次，返回什么
+	EXPECT_CALL(turtle, PenDown())
+		.Times(AtLeast(1))
+	EXPECT_CALL(turtle, GetX())
+        .Times(5)
+        .WillOnce(Return(100))
+        .WillOnce(Return(150))
+        .WillRepeatedly(Return(200));
+	Painter painter(&turtle);
+	
+	EXPECT_TRUE(painter.DrawCircle(0, 0, 10));
+}
+```
+
+
+
 ## 参考链接
 
 1. [GoogleTest Primer](https://google.github.io/googletest/primer.html)
