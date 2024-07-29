@@ -3,10 +3,8 @@ title: Mamba-Frequency based method相关工作阅读
 description: 记录从频率角度出发的图像去雨Mamba-based工作
 author: momo
 categories:
-- 笔记
 - 图像处理
 tags:
-- 笔记
 - 深度学习
 - 图像处理
 layout: post

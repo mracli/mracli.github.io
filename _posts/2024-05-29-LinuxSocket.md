@@ -3,10 +3,8 @@ title: 套接字Socket
 description: Linux网络编程基础
 author: momo
 categories:
-- 笔记
 - Linux
 tags:
-- Linux
 - 笔记
 layout: post
 pin: false
