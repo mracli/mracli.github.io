@@ -30,12 +30,12 @@ auto _ = [](){
 
 ```c++
 template<typename T>
-ostream &operator<<(ostream &os, vector<T> arr){
+ostream &operator<<(ostream &os, vector<T> const &arr){
     os << '[';
     for(auto i = arr.begin(); i != arr.end(); i++){
         os << *i;
         if(i != arr.end() - 1)
-            os << ", ";
+            os << ",";
     }
     os << "]";
     return os;
