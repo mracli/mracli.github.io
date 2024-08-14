@@ -1,5 +1,5 @@
 ---
-title: stl-function
+title: stl-function 实现
 description: 剪短的描述
 author: momo
 categories:
@@ -13,7 +13,7 @@ pin: false
 math: true
 date: 2024-08-10 15:37 +0800
 ---
-在C++中一个容器类，可承载任何可调用对象，包括 lambda表达式, func, func ptr, class with operator(). 实现一个这样的容器类最关键的地方在于`类型擦除`，将任何可调用对象转为内部的FuncBase类，并通过虚函数实现具体调用，这样一个最基本的结构应该是：
+在C++中一个容器类，可承载任何可调用对象，包括 lambda表达式, func, func ptr, class with operator(). 实现一个这样的容器类最关键的地方在于`类型擦除`，即将任何可调用对象转为内部的FuncBase类的调用目标，通过 invoke 实现只关心参数及返回，并通过模板子类实现自动实例化需要被包装的可调用对象，这样一个最基本的结构应该是：
 
 ```c++
 // 对外暴露模板参数应只关注调用对象的 `签名`,  也即返回值类型和参数包

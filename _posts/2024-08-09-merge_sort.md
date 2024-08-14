@@ -96,3 +96,53 @@ int main(){
 }
 ```
 
+正常的实现，从小到大迭代窗口，记得处理最右的一块不是2的整数次幂的情况。
+
+```c++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int N = 100010;
+static vector<int> tmp(N);
+
+void merge_single(vector<int> &arr, int l, int r, int mid, bool p = false){
+    if(l >= r) return;
+    int i = l, j = mid + 1, k = 0;
+    while(i <= mid && j <= r){
+        if(arr[i] < arr[j]) tmp[k++] = arr[i++];
+        else tmp[k++] = arr[j++];
+    }
+    
+    while(i <= mid) tmp[k++] = arr[i++];
+    while(j <= r) tmp[k++] = arr[j++];
+    for(int i = l, k = 0; i <= r; i++, k++) arr[i] = tmp[k];
+}
+
+void merge_sort(vector<int> &arr, int l, int r){
+    if(l >= r) return;
+    int k = 2;
+    for(; k <= r - l + 1; k <<= 1){
+        for(int i = 0; i <= r; i += k){
+            int j = min(r, i + k - 1), mid = i + (k >> 1) - 1;
+            merge_single(arr, i, j, mid);
+        }
+    }
+    merge_single(arr, l, r, (k >> 1) - 1, true);
+}
+
+int main(){
+    int n;
+    cin >> n; 
+    vector<int> arr(n);
+    for(int i = 0; i < n; i++)
+        cin >> arr[i];
+    merge_sort(arr, 0, n - 1);
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << ' ';
+    cout << '\n';
+    
+    return 0;
+}
+```
